@@ -13,8 +13,7 @@ from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import Visualizer
-from object_detect_service.config import COMMON_CONFIGS
-
+from common_module.function_model.config import COMMON_CONFIGS
 
 class KeyPoints:
     def __init__(self, input_mat_img, cfg_path=COMMON_CONFIGS["KeyPoints"]["CFG_FILE"],

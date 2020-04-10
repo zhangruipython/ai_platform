@@ -13,7 +13,7 @@ from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import Visualizer
-from object_detect_service.config import COMMON_CONFIGS
+from common_module.function_model.config import COMMON_CONFIGS
 import torch
 import numpy as np
 

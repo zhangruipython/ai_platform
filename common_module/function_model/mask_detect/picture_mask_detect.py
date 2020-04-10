@@ -5,8 +5,8 @@
 @FileName: picture_mask_detect.py
 @Software: PyCharm
 """
-from common_util_module import do_detect, model_load
-from object_detect_service.config import COMMON_CONFIGS
+from common_module.base_tool import do_detect, model_load
+from common_module.function_model.config import COMMON_CONFIGS
 import cv2
 import uuid
 import os

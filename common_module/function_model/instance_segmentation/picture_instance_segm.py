@@ -14,7 +14,7 @@ from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import Visualizer
-from object_detect_service.config import COMMON_CONFIGS
+from common_module.function_model.config import COMMON_CONFIGS
 
 
 class InstanceSegmentation:
@@ -86,5 +86,5 @@ if __name__ == '__main__':
     weight_path = "/root/.torch/fvcore_cache/detectron2/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x/137849600/model_final_f10217.pkl"
     image_path = "/home/image/dog.jpg"
     output_path = "instance.jpg"
-    instance_segmentation = InstanceSegmentation(model_path=weight_path, cfg_path=weight_cfg_path,)
+    instance_segmentation = InstanceSegmentation(model_path=weight_path, cfg_path=weight_cfg_path, )
     print(instance_segmentation.make_instance_segment())
