@@ -1,0 +1,19 @@
+syntax = "proto3";
+service ObjectCount{
+    // 视频跟踪盘点
+    rpc TrackObjectCount(ObjectCountRequest) returns (ObjectCountResponse){}
+    // 视频图像拼接盘点
+    rpc StitchObjectCount(ObjectCountRequest) returns (ObjectCountResponse){}
+}
+message ObjectCountRequest{
+    string video_path = 1;
+    float detect_confidence = 2;
+    string model_name = 3;
+}
+message ObjectCountResponse{
+   repeated ObjectParam object_param = 1;
+}
+message ObjectParam{
+    string object_label = 1;
+    sint32 object_num = 2;
+}

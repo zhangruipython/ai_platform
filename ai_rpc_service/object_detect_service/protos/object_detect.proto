@@ -1,0 +1,42 @@
+syntax = "proto3";
+service RouteGuide{
+  rpc DetectPicture(RequestDetectPicture) returns (ResponseDetectPicture){}
+  rpc SayHello(HelloRequest) returns (HelloResponse){}
+}
+// 图像目标识别通信参数
+message RequestDetectPicture{
+    // 识别图像地址(注：图片路径为绝对路径)
+    string picture_path=1;
+    // 图像识别置信度阈值
+    float detect_confidence = 2;
+    string model_name =3;
+}
+message ResponseDetectPicture{
+    // 识别类别参数list
+    repeated DetectParam detect_param = 1;
+}
+message DetectParam{
+    // 识别类别名称
+    string object_name=1;
+    // 识别类别置信度
+    float object_confidence=2;
+    // 识别框左上坐标
+    message LtBox{
+        sint32 lt_x = 1;
+        sint32 lt_y = 2;
+    };
+    LtBox lt_box = 4;
+    // 识别框右下坐标
+    message RlBox{
+      sint32 rl_x = 1;
+      sint32 rl_y = 2;
+    };
+    RlBox rl_box = 6;
+}
+message HelloRequest {
+  string greeting = 1;
+}
+
+message HelloResponse {
+  string reply = 1;
+}
