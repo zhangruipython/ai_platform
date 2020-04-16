@@ -20,3 +20,6 @@
 ---------
 ## 添加opencv contrib模块中多目标跟踪算法模块，方法调用路径：
 **common_module/function_model/object_track/multi_tracker.py**
+
+## 添加了视频的实例分割服务，使用线程管控解决服务调用后显存占用不释放的问题，服务路径：
+**common_module/function_model/instance_segmentation/video_instance_segm.py**

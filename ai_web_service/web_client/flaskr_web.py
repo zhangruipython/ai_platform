@@ -91,3 +91,28 @@ def mask_detect():
     print("detect over")
     base64_str = img_conversion.cv2_base64(mat_img=mask_param)
     return jsonify(base64_str=base64_str)
+
+
+@app.route("/object_detect/video_instance_segm", methods=["post"])
+def video_instance_segm():
+    """
+    视频实例分割
+    :return: {"output_video_path":output_video_path}
+    """
+    json_data = request.get_json()
+    input_video_path = json_data["input_video_path"]
+    # 宿主机地址与容器地址映射
+    container_path = "/home/video_file/instance_video_dir/instance_"
+    host_machine_path = "/home/media-server/media-file/instance_video_dir/instance_"
+    container_input_video_path = input_video_path.replace(VOLUME_MAP["VideoFileMap"]["HOST_MACHINE_PATH"],
+                                                          VOLUME_MAP["VideoFileMap"]["CONTAINER_PATH"])
+    container_output_video_path = container_path + input_video_path.split("/")[-1]
+    container_output_record_path = container_output_video_path.split(".")[0] + ".txt"
+    host_machine_output_video_path = host_machine_path + input_video_path.split("/")[-1]
+    host_machine_output_record_path = host_machine_output_video_path.split(".")[0] + ".txt"
+    video_instance_seg = VideoInstanceSeg(input_video_path=container_input_video_path,
+                                          output_video_path=container_output_video_path)
+    a = video_instance_seg.control_process(record_path=container_output_record_path)
+    print("detect over")
+    return jsonify(output_video_path=host_machine_output_video_path,
+                   output_label_path=host_machine_output_record_path)

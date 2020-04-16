@@ -31,3 +31,11 @@ COMMON_CONFIGS = {
         "DARKNET_FILE": "/home/darknet-master"
     }
 }
+# 容器地址与宿主机地址映射
+VOLUME_MAP = {
+    # 视频文件存储地址映射
+    "VideoFileMap": {
+        "HOST_MACHINE_PATH": "/home/media-server/media-file",
+        "CONTAINER_PATH": "/home/video_file"
+    }
+}
