@@ -18,16 +18,20 @@ from common_module.function_model.config import COMMON_CONFIGS
 
 
 class InstanceSegmentation:
-    def __init__(self, input_mat_img, model_path=COMMON_CONFIGS["InstanceSegmentation"]["MODEL_FILE"],
+    def __init__(self, model_path=COMMON_CONFIGS["InstanceSegmentation"]["MODEL_FILE"],
                  cfg_path=COMMON_CONFIGS["InstanceSegmentation"]["CFG_FILE"]):
         """
         :param model_path: 模型地址
         :param cfg_path: cfg配置文件地址
-        :param input_mat_img: 传入mat格式图片
         """
         self.model_path = model_path
         self.cfg_path = cfg_path
-        self.input_mat_img = input_mat_img
+        self.model_cfg = get_cfg()
+        self.model_cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+        self.model_cfg.merge_from_file(cfg_path)
+        self.model_cfg.MODEL.WEIGHTS = model_path
+        self.predictor = DefaultPredictor(self.model_cfg)
+        # self.input_mat_img = input_mat_img
 
     @staticmethod
     def create_text_labels(classes, scores, class_names):
@@ -56,7 +60,7 @@ class InstanceSegmentation:
         v = v.draw_instance_predictions(predictions)
         return v.get_image()
 
-    def make_instance_segment(self):
+    def make_instance_segment(self, input_mat_img):
         """
         返回识别参数
         :return:
@@ -64,17 +68,17 @@ class InstanceSegmentation:
         # im = read_image(self.img_path)
         # im = cv2.imread(self.img_path)
         # cfg配置文件
-        model_cfg = get_cfg()
-        model_cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
-        model_cfg.merge_from_file(self.cfg_path)
-        model_cfg.MODEL.WEIGHTS = self.model_path
-        predictor = DefaultPredictor(model_cfg)
-        predictions = predictor(self.input_mat_img)["instances"].to("cpu")
+        # model_cfg = get_cfg()
+        # model_cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+        # model_cfg.merge_from_file(self.cfg_path)
+        # model_cfg.MODEL.WEIGHTS = self.model_path
+        # predictor = DefaultPredictor(self.model_cfg)
+        predictions = self.predictor(input_mat_img)["instances"].to("cpu")
         detect_scores = predictions.scores if predictions.has("scores") else None
         detect_classes = predictions.pred_classes if predictions.has("pred_classes") else None
-        metadata = MetadataCatalog.get(model_cfg.DATASETS.TRAIN[0])
+        metadata = MetadataCatalog.get(self.model_cfg.DATASETS.TRAIN[0])
         # 检测结果写入图片
-        output_mat_img = self.draw_picture(metadata, self.input_mat_img, predictions)
+        output_mat_img = self.draw_picture(metadata, input_mat_img, predictions)
         label = self.create_text_labels(classes=detect_classes, scores=detect_scores,
                                         class_names=metadata.get("thing_classes", None))
         # key_points = predictions.pred_keypoints if predictions.has("pred_keypoints") else None
