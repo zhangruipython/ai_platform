@@ -23,3 +23,5 @@
 
 ## 添加了视频的实例分割服务，使用线程管控解决服务调用后显存占用不释放的问题，服务路径：
 **common_module/function_model/instance_segmentation/video_instance_segm.py**
+
+## YOLOv4 地址：https://github.com/AlexeyAB/darknet
