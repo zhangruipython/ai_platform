@@ -16,7 +16,7 @@
 **ai_rpc_service/show_platform/picture_detect.ipynb**
 ---------
 ## 可视化交互界面如下
-![image](https://i.loli.net/2020/04/08/PJ1NklYRCfq9bn5.png)
+![image](https://i.loli.net/202opencv_darknet_demo.py0/04/08/PJ1NklYRCfq9bn5.png)
 ---------
 ## 添加opencv contrib模块中多目标跟踪算法模块，方法调用路径：
 **common_module/function_model/object_track/multi_tracker.py**
