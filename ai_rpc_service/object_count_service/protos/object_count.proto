@@ -11,7 +11,7 @@ message ObjectCountRequest{
     string model_name = 3;
 }
 message ObjectCountResponse{
-   repeated ObjectParam object_param = 1;
+   repeate object_param = 1;
 }
 message ObjectParam{
     string object_label = 1;

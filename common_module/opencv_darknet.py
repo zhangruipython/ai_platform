@@ -70,12 +70,12 @@ inpHeight = 416
 
 
 def load_model():
-    classesFile = "C:/software2/darknet-master/build/darknet/x64/data/coco.names"
+    classesFile = "D:/Documents/darknet/coco.names"
     with open(classesFile, 'rt') as f:
         classes = f.read().rstrip('\n').split('\n')
     # Give the configuration and weight files for the model and load the network using them.
-    modelConfiguration = "C:/software2/darknet-master/build/darknet/x64/yolov3.cfg"
-    modelWeights = "C:/software2/darknet-master/build/darknet/x64/yolov3.weights"
+    modelConfiguration = "D:/Documents/darknet/yolov3.cfg"
+    modelWeights = "D:/Documents/darknet/yolov3.weights"
     # 使用CPU
     cpu_net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
     cpu_net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
@@ -86,7 +86,7 @@ def load_model():
 if __name__ == '__main__':
     net = load_model()[0]
     my_classes = load_model()[1]
-    img_path_list = ["C:/software2/darknet-master/build/darknet/x64/data/demo01.png"]
+    img_path_list = ["D:/Documents/darknet/dog.jpg"]
     for img_path in img_path_list:
         frame = cv2.imread(img_path)
         blob = cv2.dnn.blobFromImage(frame, 1 / 255, (inpWidth, inpHeight), [0, 0, 0], 1, crop=False)
