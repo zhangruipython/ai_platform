@@ -207,3 +207,23 @@ def detection_to_tracker(detections, confidence, zh_en_dir):
                 label_boxes.append(
                     (detection_param[2][0], detection_param[2][1], detection_param[2][2], detection_param[2][3]))
     return label_boxes, label_names
+
+
+if __name__ == '__main__':
+    """
+    {'detections': 
+    [(b'dog', 0.9978259205818176, (221.85183715820312, 383.36724853515625, 196.34954833984375, 319.6354675292969)), 
+     (b'bicycle', 0.9898183345794678, (343.392578125, 278.48504638671875, 451.8406677246094, 308.537109375)), 
+     (b'truck', 0.9373040795326233, (582.4103393554688, 126.84490966796875, 217.21414184570312, 78.67939758300781))], 
+    'img':
+    }
+    """
+    mes = load_model(darknet_path="/home/hadoop/Documents/darknet-master-1/darknet-master",
+                     configPath="/home/hadoop/Documents/darknet-master-1/darknet-master/cfg/yolov3.cfg",
+                     weightPath="/home/hadoop/Documents/darknet-master-1/darknet-master/backup/yolov3.weights",
+                     metaPath="/home/hadoop/Documents/darknet-master-1/darknet-master/cfg/coco.data")
+    print(detection(darknet_path=mes[3],
+                    net_main=mes[0],
+                    meta_main=mes[1],
+                    thresh=mes[2],
+                    image_path="/home/hadoop/Documents/darknet-master-1/darknet-master/data/dog.jpg"))
