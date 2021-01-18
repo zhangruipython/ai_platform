@@ -29,7 +29,7 @@ class DetectTrackCount:
     max_cosine_distance = 0.3
     nn_budget = None
     nms_max_overlap = 1.0
-    model_filename = '/home/hadoop/RongzerAI/rongerai/property_check/model_data/mars-small128.pb'
+    model_filename = '/home/hadoop/property_check/model_data/mars-small128.pb'
 
     def __init__(self, video_path, confidence, yolo_model_name):
         self.video_path = video_path
